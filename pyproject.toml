@@ -1,0 +1,10 @@
+[project]
+name = "tsp"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.10.8",
+    "typer>=0.21.1",
+]
