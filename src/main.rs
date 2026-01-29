@@ -20,7 +20,7 @@ fn main() {
     two_opt(&mut tour, &tsp_instance);
     let total_distance = tour_distance(&tour, &tsp_instance);
     println!("Tour: {:?}", tour);
-    println!("Total distance: {}", total_distance);
+    println!("Total distance: {:.2}", total_distance);
     // Save output to file
     let output_file = &args[2];
     let output_data = serde_json::to_string_pretty(&tour).expect("Unable to serialize tour");

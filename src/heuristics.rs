@@ -1,6 +1,6 @@
 use core::f64;
 
-use crate::models::{City, TspInstance, distance, tour_distance};
+use crate::models::{TspInstance, distance};
 
 // Nearest Neighbor Heuristic
 pub fn nearest_neighbor(tsp_instance: &TspInstance) -> Vec<usize> {
@@ -40,38 +40,33 @@ pub fn nearest_neighbor(tsp_instance: &TspInstance) -> Vec<usize> {
 // 2-opt
 pub fn two_opt(tour: &mut Vec<usize>, tsp_instance: &TspInstance) {
     let n = tour.len();
+    if n <= 3 {
+        return;
+    }
     let mut improved = true;
 
     while improved {
         improved = false;
-        for i in 1..(n - 2) {
-            for j in (i + 1)..(n - 1) {
-                let city1_a = if tour[i - 1] == 0 {
-                    &tsp_instance.depot
-                } else {
-                    &tsp_instance.cities[tour[i - 1] - 1]
-                };
-                let city1_b = if tour[i] == 0 {
+        for i in 0..(n - 3) {
+            for j in (i + 2)..(n - 1) {
+                let city_a = if tour[i] == 0 {
                     &tsp_instance.depot
                 } else {
                     &tsp_instance.cities[tour[i] - 1]
                 };
-                let city2_a = if tour[j] == 0 {
+                let city_b = &tsp_instance.cities[tour[i+1] - 1];
+                let city_c = &tsp_instance.cities[tour[j] - 1];
+                let city_d = if tour[j+1] == 0 {
                     &tsp_instance.depot
                 } else {
-                    &tsp_instance.cities[tour[j] - 1]
-                };
-                let city2_b = if tour[j + 1] == 0 {
-                    &tsp_instance.depot
-                } else {
-                    &tsp_instance.cities[tour[j + 1] - 1]
+                    &tsp_instance.cities[tour[j+1] - 1]
                 };
 
-                let current_distance = distance(city1_a, city1_b) + distance(city2_a, city2_b);
-                let new_distance = distance(city1_a, city2_a) + distance(city1_b, city2_b);
+                let current_distance = distance(city_a, city_b) + distance(city_c, city_d);
+                let new_distance = distance(city_a, city_c) + distance(city_b, city_d);
 
                 if new_distance < current_distance {
-                    tour[i..=j].reverse();
+                    tour[(i+1)..(j+1)].reverse();
                     improved = true;
                 }
             }
