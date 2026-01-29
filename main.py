@@ -5,7 +5,7 @@ import typer
 app = typer.Typer(help="Plot a TSP tour from instance and result JSON files")
 
 @app.command()
-def plot_tsp(case_file: str, result_file: str):
+def plot_tsp(case_file: str, result_file: str, fig_file: str):
     """
     Plot a TSP tour.
 
@@ -41,6 +41,7 @@ def plot_tsp(case_file: str, result_file: str):
     plt.grid(True)
     plt.axis('equal')
     plt.legend()
+    plt.savefig(fig_file)
     plt.show()
 
 
