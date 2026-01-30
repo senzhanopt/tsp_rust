@@ -40,3 +40,24 @@ pub fn tour_distance(tour: &[usize], tsp_instance: &TspInstance) -> f64 {
     }
     total_distance
 }
+
+pub fn build_distance_matrix(tsp_instance: &TspInstance) -> Vec<Vec<f64>> {
+    let n = tsp_instance.cities.len() + 1; // +1 for depot
+    let mut matrix = vec![vec![0.0; n]; n];
+    for i in 0..n {
+        for j in 0..n {
+            let city1 = if i == 0 {
+                &tsp_instance.depot
+            } else {
+                &tsp_instance.cities[i - 1]
+            };
+            let city2 = if j == 0 {
+                &tsp_instance.depot
+            } else {
+                &tsp_instance.cities[j - 1]
+            };
+            matrix[i][j] = distance(city1, city2);
+        }
+    }
+    matrix
+}
