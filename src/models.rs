@@ -25,7 +25,7 @@ pub fn distance(city1: &City, city2: &City) -> f64 {
 // tour is a sequence of city indices, starting and ending at the depot (index 0)
 pub fn tour_distance(tour: &[usize], tsp_instance: &TspInstance) -> f64 {
     let mut total_distance = 0.0;
-    for i in 0..(tour.len()-1) {
+    for i in 0..(tour.len() - 1) {
         let city1 = if tour[i] == 0 {
             &tsp_instance.depot
         } else {
