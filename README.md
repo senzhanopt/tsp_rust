@@ -7,7 +7,7 @@ cargo run data/case4.json result/res4.json
 
 Run Python for visualization:
 ```bash
-uv run main.py data/case4.json result/res4.json
+uv run main.py data/case4.json result/res4.json result/case4.json
 ```
 
 See an example:
